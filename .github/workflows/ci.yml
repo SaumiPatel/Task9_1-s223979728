@@ -23,3 +23,23 @@ jobs:
     
     - name: Test with Maven
       run: mvn test
+      
+    - name: Send email on failure
+      if: failure()
+      uses: resend/github-action@v0.2.0
+      with:
+        from: onboarding@resend.dev
+        to: iarmy0826@gmail.com
+        subject: "⚠️ Build Failed: OnTrack Task Validator"
+        text: "Your build has failed. Please check the GitHub Actions logs: https://github.com/SaumiPatel/Task9_1-s223979728/actions"
+        api-key: ${{ secrets.RESEND_API_KEY }}
+        
+    - name: Send email on success
+      if: success()
+      uses: resend/github-action@v0.2.0
+      with:
+        from: onboarding@resend.dev
+        to: iarmy0826@gmail.com
+        subject: "✅ Build Succeeded: OnTrack Task Validator"
+        text: "Your build has succeeded! All tests passed."
+        api-key: ${{ secrets.RESEND_API_KEY }}
