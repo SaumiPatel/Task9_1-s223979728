@@ -1,4 +1,4 @@
-name: OnTrack Validation CI
+name: OnTrack Task Validator CI
 
 on:
   push:
@@ -16,10 +16,13 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+    
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    
     - name: Test with Maven
       run: mvn test
+    
     - name: Notify on success
       if: success()
       uses: dawidd6/action-send-mail@v3
@@ -28,10 +31,11 @@ jobs:
         server_port: 465
         username: ${{ secrets.MAIL_USERNAME }}
         password: ${{ secrets.MAIL_PASSWORD }}
-        subject: Build Successful - OnTrack Validator
-        body: Your build was successful!
-        to: your-email@example.com
+        subject: Build Successful - OnTrack Task Validator
+        body: Your build was successful! All tests passed.
+        to: ${{ secrets.MAIL_USERNAME }}
         from: GitHub Actions
+    
     - name: Notify on failure
       if: failure()
       uses: dawidd6/action-send-mail@v3
@@ -40,7 +44,7 @@ jobs:
         server_port: 465
         username: ${{ secrets.MAIL_USERNAME }}
         password: ${{ secrets.MAIL_PASSWORD }}
-        subject: Build Failed - OnTrack Validator
-        body: Your build has failed. Please check the logs.
-        to: sampatel032002@gmail.com
+        subject: Build Failed - OnTrack Task Validator
+        body: Your build has failed. Please check the GitHub Actions logs.
+        to: ${{ secrets.MAIL_USERNAME }}
         from: GitHub Actions
