@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ValidationResult {
-    private boolean valid;
+    private boolean valid = true;
     private List<String> errors = new ArrayList<>();
     
     public boolean isValid() {

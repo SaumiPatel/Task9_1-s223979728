@@ -22,8 +22,4 @@ public class TaskSubmission {
     public void setTextContent(String textContent) {
         this.textContent = textContent;
     }
-    
-    public boolean isEmpty() {
-        return attachedFiles.isEmpty() && (textContent == null || textContent.trim().isEmpty());
-    }
 }
